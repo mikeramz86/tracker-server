@@ -1,6 +1,23 @@
 const express = require('express')
+const mongoose = require('mongoose')
 
 const app = express()
+
+const mongoUri =
+  'mongodb+srv://admin:password1234@cluster0-4eslz.mongodb.net/<dbname>?retryWrites=true&w=majority'
+
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+})
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected mongo instance')
+})
+
+mongoose.connection.on('error', () => {
+  console.error('Error connection to mongo', error)
+})
 
 /*
 Below: 
