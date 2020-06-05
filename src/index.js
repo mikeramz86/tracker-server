@@ -10,19 +10,19 @@ app.use(bodyParser.json())
 app.use(authRoutes)
 
 const mongoUri =
-  'mongodb+srv://admin:password1234@cluster0-4eslz.mongodb.net/<dbname>?retryWrites=true&w=majority'
+    'mongodb+srv://admin:password1234@cluster0-4eslz.mongodb.net/tracker?retryWrites=true&w=majority'
 
 mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
 })
 
 mongoose.connection.on('connected', () => {
-  console.log('Connected mongo instance')
+    console.log('Connected mongo instance')
 })
 
 mongoose.connection.on('error', () => {
-  console.error('Error connection to mongo', error)
+    console.error('Error connection to mongo', error)
 })
 
 /*
@@ -36,9 +36,9 @@ res object: represents out going response
 
 */
 app.get('/', (req, res) => {
-  res.send('Hi there!')
+    res.send('Hi there!')
 })
 
 app.listen(3000, () => {
-  console.log('Listening on Port 3000')
+    console.log('Listening on Port 3000')
 })
