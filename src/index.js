@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
 const bodyParser = require('body-parser')
+const requireAuth = require('./middlewares/requireAuth')
 
 const app = express()
 
@@ -35,8 +36,8 @@ the function gets run automatically with a requst object
 res object: represents out going response
 
 */
-app.get('/', (req, res) => {
-    res.send('Hi there again!')
+app.get('/', requireAuth, (req, res) => {
+    res.send(`Your email: ${req.user.email}`)
 })
 
 app.listen(3000, () => {
