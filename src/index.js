@@ -1,7 +1,9 @@
 require('./models/User')
+require('./models/Track')
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/authRoutes')
+const trackRoutes = require('./routes/trackRoutes')
 const bodyParser = require('body-parser')
 const requireAuth = require('./middlewares/requireAuth')
 
@@ -9,21 +11,22 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(authRoutes)
+app.use(trackRoutes)
 
 const mongoUri =
-    'mongodb+srv://admin:password1234@cluster0-4eslz.mongodb.net/<dbname>?retryWrites=true&w=majority'
+  'mongodb+srv://admin:password1234@cluster0-4eslz.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
 mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
 })
 
 mongoose.connection.on('connected', () => {
-    console.log('Connected mongo instance')
+  console.log('Connected mongo instance')
 })
 
 mongoose.connection.on('error', () => {
-    console.error('Error connection to mongo', error)
+  console.error('Error connection to mongo', error)
 })
 
 /*
@@ -37,9 +40,9 @@ res object: represents out going response
 
 */
 app.get('/', requireAuth, (req, res) => {
-    res.send(`Your email: ${req.user.email}`)
+  res.send(`Your email: ${req.user.email}`)
 })
 
 app.listen(3000, () => {
-    console.log('Listening on Port 3000')
+  console.log('Listening on Port 3000')
 })
